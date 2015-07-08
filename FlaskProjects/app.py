@@ -8,6 +8,9 @@ from flask import Flask
 #create the application object
 app = Flask(__name__)
 
+#error handling
+app.config["DEBUG"] = True
+
 #use decorators to link the function of a url
 @app.route("/")
 @app.route("/hello")
@@ -30,6 +33,14 @@ def int_type(value):
 def float_type(value):
     print value + 1
     return "correct"
+
+@app.route("/name/<name>")
+def index(name):
+    if name.lower() == "michael" :
+        return "Hello, {}".format(name), 200
+    else:
+        return "Not Found", 404
+
 
 #dynamic route that accepts slashes
 @app.route("/path/<path:value>")
